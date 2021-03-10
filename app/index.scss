@@ -1,0 +1,44 @@
+body, html, #app {
+	background-color: #1f1f1f;
+	font-family: 'Quicksand';
+	margin: 0;
+	color: white;
+}
+
+button {
+	background-color: transparent;
+	color: white;
+	border: none;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.column {
+	flex-direction: column;
+}
+
+.title {
+	height: 200px;
+	width: 1200px;
+	margin: 0 auto;
+}
+
+// For PageGrid
+.circle {
+	border-radius: 50px;
+	height: 200px;
+	width: 200px;
+	background-color: white;
+}
+
+.page-grid {
+	width: 1200px;
+	height: 70vh;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
