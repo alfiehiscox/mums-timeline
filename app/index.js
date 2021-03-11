@@ -28,7 +28,6 @@ function App (props) {
   return (
     router(chosen, setChosen)
   )
-
 }
 
 ReactDOM.render(

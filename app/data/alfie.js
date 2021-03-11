@@ -1,14 +1,16 @@
-const data = [
+// Image imports
+import Profile from '../images/alfie/alfie.jpeg';
+
+const eventData = [
   {
     id: 1,
-    type: 'thing1',
-    event: 'Birth'
-  },
-  {
-    id: 2,
-    type: 'thing2',
-    event: 'Marry'
+    event: {
+      type: "birth",
+      title: "Born",
+      date: "31-07-1998",
+      img: Profile
+    }
   }
 ]
 
-export default data
+export default eventData

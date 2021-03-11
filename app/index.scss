@@ -42,3 +42,9 @@ button {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 }
+
+// For Timeline
+.timeline-container {
+	margin: 100px;
+	display: flex;
+}
