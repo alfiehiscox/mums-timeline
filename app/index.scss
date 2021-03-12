@@ -11,6 +11,10 @@ button {
 	border: none;
 }
 
+.btn-hidden {
+	border-style: none;
+}
+
 .flex-center {
 	display: flex;
 	justify-content: center;
@@ -43,8 +47,26 @@ button {
 	grid-template-columns: repeat(3, 1fr);
 }
 
-// For Timeline
+// For Timeline Slider
+.viewport {
+	width: 100%;
+	height: calc(100vh - 75px);
+	overflow: hidden;
+}
+
+.slider-nav {
+	display: flex;
+	width: 500px;
+	margin: 0 auto;
+
+	svg {
+		margin-top: 20px;
+		margin: 0 100px;
+	}
+}
+
 .timeline-container {
 	margin: 100px;
 	display: flex;
 }
+

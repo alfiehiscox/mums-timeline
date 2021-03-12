@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 
 // Components
-import Birth, {Event} from './events/Birth';
+import { SingleImageEvent, FourImageEvent, SmallEvent } from './events/Events';
+import { FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
 
 // Styles
 import '../index.scss';
@@ -27,10 +28,33 @@ export default function Timeline (props) {
     <React.Fragment>
       <h1 className="flex-center">{props.name} and Mum</h1>
       
-      <div className="timeline-container">
+      <TimelineSlider componentArray={componentArray} />
+    </React.Fragment>
+  )
+}
+
+function TimelineSlider ({ componentArray }) {
+  const [transform, setTransform] = useState(0);
+
+  const sliderStyles = {
+    transform: `translateX(${transform}%)`,
+    transition: 'all 1s ease'
+  }
+
+  return (
+    <div className="viewport">
+      <div className="slider-nav">
+        <button className="btn-hidden" onClick={() => transform !== 25 && setTransform(transform + 25)} >
+          <FaAngleDoubleLeft color="white" size={40} />
+        </button>
+        <button className="btn-hidden" onClick={() => setTransform(transform - 25)} >
+          <FaAngleDoubleRight color="white" size={40} />
+        </button>
+      </div>
+      <div className="timeline-container" style={sliderStyles}>
         { componentArray }
       </div>
-    </React.Fragment>
+    </div>
   )
 }
 
@@ -63,10 +87,32 @@ function getPersonArray(person) {
   }
 }
 
-function getEventComponent ({type, date, title, img}) {
+function getEventComponent ({type, date, title, img, imgs, first, icon}) {
   switch (type) {
-    case 'birth':
-      return <Birth key={date} date={date} title={title} img={img}/>
+    case 'singleImageEvent':
+      return <SingleImageEvent 
+              key={date} 
+              date={date} 
+              title={title} 
+              img={img} 
+              first={first === 'true'}
+            />
+    case 'fourImageEvent':
+      return <FourImageEvent 
+              key={date}
+              date={date}
+              title={title}
+              imgs={imgs}
+              first={first=== 'true'}
+            />
+    case 'smallEvent':
+      return <SmallEvent 
+              key={date}
+              date={date}
+              title={title}
+              icon={icon}
+              first={first === 'true'}
+            />
   }
 }
 

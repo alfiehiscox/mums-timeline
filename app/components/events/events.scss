@@ -18,13 +18,17 @@
 	background-color: white;
 }
 
+.w100 {
+	width: 100%;
+}
+
 // Connector
 .first {
 	margin-left: 112px;
 }
 
 .connector-container {
-	width: 600px;
+	width: 500px;
 	margin-top: 20px;
 	display: flex;
 	align-items: center;
@@ -44,18 +48,71 @@
 	margin-left: 25px;
 }
 
-// Have to figure out the left ocnnector of non-first components
-// .connector-line-left {
-// 	height: 2px;
-// 	background-color: white;
-// }
+.connector-line-left {
+	height: 2px;
+	width: 87px;
+	background-color: white;
+	margin-right: 25px;
+}
 
-// Birth Event
-.birth-event {
+.flex-end {
+	display: flex;
+	align-items: flex-end;
+}
+
+.btn-hidden {
+	border: none;
+}
+
+// Single Image Event
+.single-image-event {
 	width: 250px;
 	
 	img {
 		width: 100%;
+		height: 250px;
 		border-radius: 20px;
 	} 
 }
+
+// Four Image Event
+.four-image-event {
+	width: 250px;
+	.grid-four {
+		width: 100%;
+		height: 254px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 10px;
+		margin: 0 auto;
+
+		img {
+			width: 100%;
+			border-radius: 3px;
+		}
+	}
+
+	img:hover {
+		opacity: 0.8;
+	}
+
+	.chosen-image {
+		width: 100%;
+		height: 250px;
+		border-radius: 20px;
+	}
+}
+
+// Small Event
+.small-event {
+	width: 250px;
+
+	h2 {
+		font-size: 20px;
+	}
+
+	h3 {
+		font-size: 16px;
+	}
+}
+
