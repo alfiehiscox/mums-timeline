@@ -15,6 +15,12 @@ button {
 	border-style: none;
 }
 
+.btn-home {
+	position: absolute;
+	top: 5%;
+	left: 50px;
+}
+
 .flex-center {
 	display: flex;
 	justify-content: center;
@@ -49,7 +55,8 @@ button {
 
 // For Timeline Slider
 .viewport {
-	width: 100%;
+	width: calc(100% - 100px);
+	margin: 0 auto;
 	height: 100vh;
 	overflow: hidden;
 }

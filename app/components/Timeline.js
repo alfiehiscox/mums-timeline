@@ -4,7 +4,7 @@ import { Transition, CSSTransition } from 'react-transition-group';
 
 // Components
 import { SingleImageEvent, FourImageEvent, SmallEvent } from './events/Events';
-import { FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
+import { FaAngleDoubleLeft, FaAngleDoubleRight, FaHome } from 'react-icons/fa';
 
 // Styles
 import '../index.scss';
@@ -59,6 +59,9 @@ export default function Timeline (props) {
 
   return (
     <React.Fragment>
+      <button className="btn-home" onClick={() => {props.handelChoice('home')}} >
+        <FaHome size={25} color='white' />
+      </button>
       <CSSTransition 
         in={reveal} 
         timeout={100000} 

@@ -19,7 +19,7 @@ function router(state, handelChoice) {
     )
   } else {
     // We gonna do something clever here
-    return <Timeline name={state} />
+    return <Timeline name={state} handelChoice={handelChoice} />
   }
 }
 
