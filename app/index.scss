@@ -50,7 +50,7 @@ button {
 // For Timeline Slider
 .viewport {
 	width: 100%;
-	height: calc(100vh - 75px);
+	height: 100vh;
 	overflow: hidden;
 }
 
@@ -58,15 +58,50 @@ button {
 	display: flex;
 	width: 500px;
 	margin: 0 auto;
+	margin-top: 150px;
+	opacity: 0;
+	// transition: opacity 500ms ease 2000ms;
 
 	svg {
 		margin-top: 20px;
-		margin: 0 100px;
+		margin: 0 50px;
 	}
 }
 
+.slider-nav-enter { opacity: 0; }
+.slider-nav-enter-active { opacity: 1; transition: opacity 2000ms ease 2000ms;}
+.slider-nav-enter-done { opacity: 1 }
+
 .timeline-container {
-	margin: 100px;
+	margin: 0 100px;
 	display: flex;
+}
+
+// Title Transitions
+.timeline-title {
+	position: absolute;
+    width: 100%;
+    top: 30%;
+    font-size: 30px;
+    opacity: 0;
+}
+
+.timeline-title-enter {
+	top: 30%;
+    opacity: 0;
+    font-size: 30px;
+}
+.timeline-title-enter-active {
+	top: 5%;
+	opacity: 1;
+	font-size: 20px;
+	transition: opacity 700ms ease-in-out 300ms, 
+				top 1000ms ease 1500ms, 
+				font-size 500ms ease 1500ms;
+}
+.timeline-title-enter-done {
+	top: 5%;
+	opacity: 1;
+	font-size: 20px;
 }
 

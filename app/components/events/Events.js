@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './events.scss';
+import { Transition, CSSTransition } from 'react-transition-group';
 
 // Single Image Event
-export function SingleImageEvent ({img, title, date, first}) {
+export function SingleImageEvent ({img, title, date, first, delay}) {
   return (
     <div> 
       <div className="single-image-event">
@@ -11,13 +12,13 @@ export function SingleImageEvent ({img, title, date, first}) {
         <h3 className="text-center">{date}</h3>
         <div className="connector center"></div>
       </div>
-      <Connector first={first} />
+      <Connector first={first} delay={delay}/>
     </div>
   )
 }
 
 // // Four Image Event
-export function FourImageEvent ({title, imgs, date, first}) {
+export function FourImageEvent ({title, imgs, date, first, delay}) {
   const [selectedImage, setSelectedImage] = useState(null)
 
   return (
@@ -54,13 +55,13 @@ export function FourImageEvent ({title, imgs, date, first}) {
         <h3 className="text-center">{date}</h3>
         <div className="connector center"></div>
       </div>
-      <Connector first={first} />
+      <Connector first={first} delay={delay} />
     </div>
   )
 }
 
 // Small Event
-export function SmallEvent({title, date, first, icon}) {
+export function SmallEvent({title, date, first, icon, delay}) {
   return (
       <div className="flex-end">
         <div>
@@ -69,19 +70,42 @@ export function SmallEvent({title, date, first, icon}) {
             <h2 className="text-center">{title}</h2>
             <h3 className="text-center">{date}</h3>
           </div>
-          <Connector first={first} />
+          <Connector first={first} delay={delay}/>
         </div>
       </div>
   )
 }
 
-function Connector ({first}) {
+function Connector ({first, delay}) {
+  const [active, setActive] = useState(false)
+  useEffect(() => setActive(true))
+  
+
+  const lineDefaultStyle = {
+    height: '2px',
+    flexGrow: 0.0001,
+    backgroundColor: 'white',
+    marginLeft: '25px',
+    transition: `flex-grow 2500ms ease ${delay}ms`, 
+  }
+  
+  const lineTransitionStyles = {
+    entering: { flexGrow: 1 },
+    entered: { flexGrow: 1 },
+  }
+
   return (
     <div className="connector-container">
-      {!first && <div className="connector-line-left"></div>}
-      {/*<div className="connector-line-left" style={first ? 'none' : 'block'}></div>*/}
+      {!first && <div className="connector-line-left" ></div>}
       <div className={`connector-dot ${first && 'first'}`}></div>
-      <div className="connector-line"></div>
+      <Transition
+        in={active}
+        timeout={5000}
+      >
+        { state => (
+            <div style={{...lineDefaultStyle, ...lineTransitionStyles[state]}}></div>
+        )}
+      </Transition>
     </div>
   )
 }

@@ -10,7 +10,7 @@ function router(state, handelChoice) {
   if (state === "home") {
     return (
       <React.Fragment>
-        <div className="flex-center column">
+        <div className="flex-center column title">
           <h1>Happy Mother's Day</h1>
           <p>Click on an image below:</p>
         </div>

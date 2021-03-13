@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+// Package Imports
+import React, {useState, useEffect} from 'react';
+import { Transition, CSSTransition } from 'react-transition-group';
 
 // Components
 import { SingleImageEvent, FourImageEvent, SmallEvent } from './events/Events';
@@ -17,23 +19,63 @@ import Alfie from '../data/alfie';
 
 
 export default function Timeline (props) {
+  const [reveal, setReveal] = useState(false);
   // This gives us the types of events for the right person
   const personArray = getPersonArray(props.name);
 
-  // Should call another function to render the right component based on the type
-  // ...
-  const componentArray = personArray.map( event => getEventComponent(event) )
+  useEffect(() => {
+    setReveal(true)
+  })
+
+  const transitionStyles = {
+    entering: { opacity: 1 },
+    entered: { opacity: 1 },
+    exiting: { opacity: 0 },
+    exited: { opacity: 0 }
+  }
+
+  const componentArray = personArray.map( (event, index) => {
+    const delay = ((index + 1) * 2000) + 1500;
+    const duration = 2000;
+    const defaultStyle = {
+      transition: `opacity ${duration}ms ease-in-out ${delay}ms`,
+      opacity: 0,
+    }
+
+    return (
+      <Transition
+        in={reveal}
+        timeout={duration}
+      >
+        { state => (
+            <div className='flex-end' style={{...defaultStyle, ...transitionStyles[state] }} >
+              { getEventComponent(event, delay) }
+            </div>
+          )
+        }
+      </Transition>
+    )
+  })
 
   return (
     <React.Fragment>
-      <h1 className="flex-center">{props.name} and Mum</h1>
+      <CSSTransition 
+        in={reveal} 
+        timeout={100000} 
+        className="timeline-title flex-center" 
+        classNames="timeline-title"
+      >
+        <div>
+          <h1> {props.name} and Mum </h1>
+        </div>
+      </CSSTransition>
       
-      <TimelineSlider componentArray={componentArray} />
+      <TimelineSlider reveal={reveal} componentArray={componentArray} />
     </React.Fragment>
   )
 }
 
-function TimelineSlider ({ componentArray }) {
+function TimelineSlider ({ componentArray, reveal }) {
   const [transform, setTransform] = useState(0);
 
   const sliderStyles = {
@@ -43,14 +85,21 @@ function TimelineSlider ({ componentArray }) {
 
   return (
     <div className="viewport">
-      <div className="slider-nav">
-        <button className="btn-hidden" onClick={() => transform !== 25 && setTransform(transform + 25)} >
-          <FaAngleDoubleLeft color="white" size={40} />
-        </button>
-        <button className="btn-hidden" onClick={() => setTransform(transform - 25)} >
-          <FaAngleDoubleRight color="white" size={40} />
-        </button>
-      </div>
+      <CSSTransition
+        in={reveal}
+        timeout={5000}
+        classNames="slider-nav"
+      >
+        <div className="slider-nav flex-center">
+          <button className="btn-hidden" onClick={() => transform !== 25 && setTransform(transform + 25)} >
+            <FaAngleDoubleLeft color="white" size={40} />
+          </button>
+          <button className="btn-hidden" onClick={() => setTransform(transform - 25)} >
+            <FaAngleDoubleRight color="white" size={40} />
+          </button>
+        </div>
+      </CSSTransition>
+      
       <div className="timeline-container" style={sliderStyles}>
         { componentArray }
       </div>
@@ -65,29 +114,19 @@ function getPersonArray(person) {
     case "Alfie":
       return Alfie.map(data => data.event)
     case "Toby":
-      return Toby.map((event) => (
-        event.type
-      ))
+      return Toby.map(data => data.event)
     case "Edward":
-      return Edward.map((event) => (
-        event.type
-      ))
+      return Edward.map(data => data.event)
     case "Aaron":
-      return Aaron.map((event) => (
-        event.type
-      ))
+      return Aaron.map(data => data.event)
     case "Harry":
-      return Harry.map((event) => (
-        event.type
-      ))
+      return Harry.map(data => data.event)
     case "Dad":
-      return Dad.map((event) => (
-        event.type
-      ))
+      return Dad.map(data => data.event)
   }
 }
 
-function getEventComponent ({type, date, title, img, imgs, first, icon}) {
+function getEventComponent ({type, date, title, img, imgs, first, icon}, delay) {
   switch (type) {
     case 'singleImageEvent':
       return <SingleImageEvent 
@@ -96,6 +135,7 @@ function getEventComponent ({type, date, title, img, imgs, first, icon}) {
               title={title} 
               img={img} 
               first={first === 'true'}
+              delay={delay}
             />
     case 'fourImageEvent':
       return <FourImageEvent 
@@ -104,6 +144,7 @@ function getEventComponent ({type, date, title, img, imgs, first, icon}) {
               title={title}
               imgs={imgs}
               first={first=== 'true'}
+              delay={delay}
             />
     case 'smallEvent':
       return <SmallEvent 
@@ -112,6 +153,7 @@ function getEventComponent ({type, date, title, img, imgs, first, icon}) {
               title={title}
               icon={icon}
               first={first === 'true'}
+              delay={delay}
             />
   }
 }
