@@ -35,8 +35,8 @@ export default function Timeline (props) {
   }
 
   const componentArray = personArray.map( (event, index) => {
-    const delay = ((index + 1) * 2000) + 1500;
-    const duration = 2000;
+    const delay = ((index + 1) * 2000) + 500;
+    const duration = 1500;
     const defaultStyle = {
       transition: `opacity ${duration}ms ease-in-out ${delay}ms`,
       opacity: 0,
@@ -94,10 +94,10 @@ function TimelineSlider ({ componentArray, reveal }) {
         classNames="slider-nav"
       >
         <div className="slider-nav flex-center">
-          <button className="btn-hidden" onClick={() => transform !== 25 && setTransform(transform + 25)} >
+          <button className="btn-hidden" onClick={() => transform !== 50 && setTransform(transform + 50)} >
             <FaAngleDoubleLeft color="white" size={40} />
           </button>
-          <button className="btn-hidden" onClick={() => setTransform(transform - 25)} >
+          <button className="btn-hidden" onClick={() => setTransform(transform - 50)} >
             <FaAngleDoubleRight color="white" size={40} />
           </button>
         </div>
@@ -146,7 +146,7 @@ function getEventComponent ({type, date, title, img, imgs, first, icon}, delay) 
               date={date}
               title={title}
               imgs={imgs}
-              first={first=== 'true'}
+              first={first === 'true'}
               delay={delay}
             />
     case 'smallEvent':
